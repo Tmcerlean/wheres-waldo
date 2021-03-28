@@ -1,0 +1,22 @@
+.main-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 1rem 1rem;
+  grid-template-areas:
+    ". . .";
+  border: 1px solid black;
+}
+
+.main-container__spinner {
+  position: absolute;
+  margin: auto;
+  width: 100%;
+  text-align: center;
+}
