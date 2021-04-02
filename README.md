@@ -1,3 +1,43 @@
+# Where's Waldo Game
+A puzzle game built using React JS.
+- [Live demo.](https://where-s-waldo-1cd92.web.app/)
+
+## Features
+- Real-time character verification
+- Real-time game over verification
+- Secure game updates using Firebase cloud functions
+- Server-side timestamps to measure the duration of games
+- Global leaderboard without login
+- CMS for all game data
+- 6 levels to play
+
+## Built With
+- React
+- React Router
+- Firebase Firestore
+- Firebase Hosting
+- HTML5
+- CSS3
+
+## Getting Started
+- Clone this project: git clone https://github.com/Tmcerlean/cv-builder.git
+- Install the required dependencies by using: npm install
+- A live demo of the project can be started by using: npm start
+- Distribution files can be produced using: npm run build
+
+## Future Improvements
+- Improve responsive design.
+
+## Acknowledgements
+- [The Odin Project - Where's Waldo](https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript/lessons/where-s-waldo-a-photo-tagging-app)
+
+## License
+- [MIT License](https://opensource.org/licenses/MIT)
+
+
+####################################################
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
