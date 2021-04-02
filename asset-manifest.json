@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e1cf00f4.chunk.css",
+    "main.js": "/static/js/main.db6df8a8.chunk.js",
+    "main.js.map": "/static/js/main.db6df8a8.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.224eb6c9.js",
+    "runtime-main.js.map": "/static/js/runtime-main.224eb6c9.js.map",
+    "static/js/2.47f8f669.chunk.js": "/static/js/2.47f8f669.chunk.js",
+    "static/js/2.47f8f669.chunk.js.map": "/static/js/2.47f8f669.chunk.js.map",
+    "static/js/3.e11c0117.chunk.js": "/static/js/3.e11c0117.chunk.js",
+    "static/js/3.e11c0117.chunk.js.map": "/static/js/3.e11c0117.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.e1cf00f4.chunk.css.map": "/static/css/main.e1cf00f4.chunk.css.map",
+    "static/js/2.47f8f669.chunk.js.LICENSE.txt": "/static/js/2.47f8f669.chunk.js.LICENSE.txt",
+    "static/media/Game.css": "/static/media/crosshair.9b7392cb.svg",
+    "static/media/odlaw.97f7eda9.jpg": "/static/media/odlaw.97f7eda9.jpg",
+    "static/media/waldo.1e2ee91f.jpg": "/static/media/waldo.1e2ee91f.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.224eb6c9.js",
+    "static/js/2.47f8f669.chunk.js",
+    "static/css/main.e1cf00f4.chunk.css",
+    "static/js/main.db6df8a8.chunk.js"
+  ]
+}
