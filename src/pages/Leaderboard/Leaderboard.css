@@ -1,14 +1,46 @@
-.main-container {
+.main-wrapper {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .level-container {
-    display: flex;
     justify-content: center;
     width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 15rem);
+    grid-template-rows: 1fr;
+    gap: 3rem 3rem;
+    margin-top: 5rem;
 }
 
 .leaderboard-container {
-    margin-top: 3rem;
+    margin-top: 5rem;
 }
+
+.home-button {
+    position: absolute;
+    top: 8rem;
+    left: 1rem;
+    transition: 0.3s;
+    padding: 1.5rem;
+    text-decoration: none;
+    font-size: 2rem;
+    border-radius: 0.5rem;
+    background-color: var(--red);
+    cursor: pointer;
+}
+
+.home-button a {
+    color: #fff;
+}
+  
+.home-button:hover {
+    transform: scale(1.05);
+    background-color: #e40004;
+}
+  
+.home-button a {
+    font-weight: 900;
+}
+  

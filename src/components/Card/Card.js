@@ -1,6 +1,6 @@
 import './Card.css';
 
-function Card({level, getCharacterImage}) {
+const Card = ({level, getCharacterImage}) => {
 
   const characterIcons = () => {
 

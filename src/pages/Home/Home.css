@@ -6,7 +6,7 @@
 
 .grid-container {
   justify-content: center;
-  width: 100rem;
+  width: 75%;
   display: grid;
   grid-template-columns: repeat(auto-fill, 30rem);
   grid-template-rows: 1fr;
@@ -38,7 +38,8 @@
 }
 
 .leaderboard-button:hover {
-  transform: scale(1.05)
+  transform: scale(1.05);
+  background-color: #e40004;
 }
 
 .leaderboard-button a {

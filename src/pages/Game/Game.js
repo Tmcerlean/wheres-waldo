@@ -17,11 +17,6 @@ const Game = ({ levels = {}, currentLevel, getCharacterImage }) => {
     y: null
   });
 
-  useEffect(() => {
-    console.log(coords);
-    console.log(characters)
-  }, [coords]);
-
   let history = useHistory();
 
   useEffect(() => {
@@ -245,10 +240,6 @@ const Game = ({ levels = {}, currentLevel, getCharacterImage }) => {
     }
   }, [gameOver]);
 
-  const handleClose = () => {
-    history.push("/");
-  }
-
   const renderGameOverModal = () => {
     if (gameOver) {
       return (
@@ -276,6 +267,10 @@ const Game = ({ levels = {}, currentLevel, getCharacterImage }) => {
     }
   }
 
+  const handleClose = () => {
+    history.push("/");
+  }
+
   const handleChange = (e) => {
 		setPlayerName(e.target.value);
   }
@@ -283,11 +278,11 @@ const Game = ({ levels = {}, currentLevel, getCharacterImage }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (playerName === '') {
-      // Display an error
+      alert("Please enter your name!");
     } else {
       submitScore(playerName, elapsedSeconds);
+      history.push('/leaderboard');
     }
-    history.push('/leaderboard');
   }
 
   const submitScore = (playerName, elapsedSeconds) => {
@@ -332,10 +327,8 @@ const Game = ({ levels = {}, currentLevel, getCharacterImage }) => {
         </div>
       )
     })
-
     return <div>{status}</div>
   }
-
 
   return (
     <Layout>

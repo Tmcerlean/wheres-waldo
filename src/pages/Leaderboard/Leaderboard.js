@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import Layout from '../../components/Layout/Layout';
-import Card from '../../components/Card/Card';
+import LeaderboardCard from '../../components/LeaderboardCard/LeaderboardCard';
 import './Leaderboard.css';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -45,6 +45,8 @@ const useStyles = makeStyles({
 
 const Leaderboard = ({ levels = {}, currentLevel, setCurrentLevel, getCharacterImage }) => {
 
+    let history = useHistory();
+
     const [rows, setRows] = useState([]);
 
     const classes = useStyles();
@@ -52,7 +54,7 @@ const Leaderboard = ({ levels = {}, currentLevel, setCurrentLevel, getCharacterI
     const gameLevels = levels.map((level) => {
         return (
             <Link onClick={() => setCurrentLevel(level.id)}>
-                <Card key={level.id} level={level} getCharacterImage={getCharacterImage} />
+                <LeaderboardCard key={level.id} level={level} />
             </Link>
         );
     });
@@ -86,11 +88,18 @@ const Leaderboard = ({ levels = {}, currentLevel, setCurrentLevel, getCharacterI
 
     useEffect(() => {
         getHighScores(currentLevel)
-    }, []);
+    }, [currentLevel]);
+
+    const handleClick = () => {
+        history.push("/");
+    }
 
     return (
         <Layout>
-            <div className="main-container">
+            <div class="home-button">
+                <a onClick={handleClick}>Home</a>
+            </div>
+            <div className="main-wrapper">
                 <div className="level-container">
                     {gameLevels}
                 </div>
