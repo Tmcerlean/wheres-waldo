@@ -1,17 +1,16 @@
 .main-container {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 10rem;
 }
 
 .grid-container {
+  justify-content: center;
+  width: 100rem;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, 30rem);
   grid-template-rows: 1fr;
-  gap: 1rem 1rem;
-  grid-template-areas:
-    ". . .";
-  border: 1px solid black;
+  gap: 3rem 3rem;
 }
 
 .main-container__spinner {
@@ -20,3 +19,29 @@
   width: 100%;
   text-align: center;
 }
+
+.leaderboard-button {
+  position: absolute;
+  top: 8rem;
+  left: 1rem;
+  transition: 0.3s;
+  padding: 1.5rem;
+  text-decoration: none;
+  font-size: 2rem;
+  border-radius: 0.5rem;
+  background-color: var(--red);
+  cursor: pointer;
+}
+
+.leaderboard-button a {
+  color: #fff;
+}
+
+.leaderboard-button:hover {
+  transform: scale(1.05)
+}
+
+.leaderboard-button a {
+  font-weight: 900;
+}
+

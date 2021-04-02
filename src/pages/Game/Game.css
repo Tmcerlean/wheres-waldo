@@ -4,7 +4,7 @@
 }
 
 .image-container {
-    width: 75%;
+    width: 100%;
     display: flex;
     justify-content: center;
 }
@@ -25,8 +25,6 @@
     width: 7rem;
     height: 7rem;
     background-color: var(--red);
-    left: 0;
-    top: 0;
     z-index: 1;
     opacity: 50%;
     border: 0.3rem solid black;
@@ -35,12 +33,10 @@
 
 .menu-box {
     position: absolute;
-    width: 20rem;
+    width: 12rem;
     background-color: #fff;
-    left: 0;
-    top: 0;
     z-index: 1;
-    opacity: 90%;
+    opacity: 93%;
     border-radius: 0.5rem;
 }
 
@@ -53,7 +49,7 @@
 }
 
 .menu-box__option-wrapper:not(:last-child) {
-    border-bottom: 1px solid rgb(238, 238, 238);
+    border-bottom: 0.1rem solid rgb(238, 238, 238);
 }
 
 .menu-box__option-image {
@@ -74,12 +70,160 @@
     cursor: pointer;
 }
 
+.game-over-modal-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 .game-over-modal {
-    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: center;
+    position: fixed;
     left: 50%;
     top: 50%;
-    width: 500px;
-    height: 300px;
-    background-color: white;
+    width: 40rem;
+    padding: 2rem;
     transform: translate(-50%, -50%);
+    box-shadow: rgba(100, 100, 111, 0.5) 0rem 0.7rem 2.9rem 0rem;
+    animation-name: backgroundColorPalette;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.game-over-modal__close-button-container {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    margin: auto;
+    width: 3rem;
+    cursor: pointer;
+  }
+  
+  .game-over-modal__close-button {
+    width: inherit;
+    text-align: center;
+  }
+  
+  label { 
+    font-size: .8rem; 
+    line-height: 4rem;
+    text-transform: uppercase;
+    color: #000;
+    transition: all .3s ease-in;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .game-over-modal__close-button:before, .game-over-modal__close-button:after {
+    position: absolute;
+    content: '';
+    height: 0.1rem;
+    width: inherit;
+    background: #000;
+    left: 0;
+    transition: all .3s ease-in;
+  }
+  
+  .game-over-modal__close-button:before {
+    top: 50%; 
+    transform: rotate(45deg);  
+  }
+  
+  .game-over-modal__close-button:after {  
+    bottom: 50%;
+    transform: rotate(-45deg);  
+  }
+  
+  .game-over-modal__close-button-container:hover label {
+    opacity: 1;
+  }
+  
+  .game-over-modal__close-button-container:hover .game-over-modal__close-button:before,
+  .game-over-modal__close-button-container:hover .game-over-modal__close-button:after {
+    transform: rotate(0);
+  }
+  
+  .game-over-modal__close-button-container:hover .game-over-modal__close-button:before {
+    top: 0;
+  }
+  
+  .game-over-modal__close-button-container:hover .game-over-modal__close-button:after {
+    bottom: 0;
+  }
+
+@keyframes backgroundColorPalette {
+    0% {
+      background: #f0ebe7;
+    }
+    25% {
+      background: #dbd4ce;
+    }
+    50% {
+      background: #b6cbde;
+    }
+    75% {
+      background: #d4e5ef;
+    }
+    100% {
+      background: #f5f5f5;
+    }
+  }
+
+.game-over-modal__header {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-size: 3rem;
+}
+
+.game-over-modal__p {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2rem;
+    font-size: 2rem;
+}
+
+.game-over-modal__input {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2rem;
+    padding: 1rem;
+    text-align: center;
+    border: none;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.game-over-modal__input:focus {
+    outline: none;
+}
+
+.floating-status {
+    position: fixed;
+    right: 2rem;
+    top: 10rem;
+    background-color: white;
+}
+
+.floating-char {
+    display: flex;
+    justify-content: center;
+}
+
+.floating-char__image {
+    display: flex;
+    width: 5rem;
+    padding: 1rem;
+}
+
+.floating-char__image.found {
+    opacity: 0.25;
 }

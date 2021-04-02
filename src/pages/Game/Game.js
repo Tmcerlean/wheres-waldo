@@ -2,14 +2,9 @@ import { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import './Game.css';
 import Layout from '../../components/Layout/Layout';
-import img from './level-1.jpg';
-import waldo from '../../images/waldo.jpg';
-import odlaw from '../../images/odlaw.jpg';
-import wizard from '../../images/wizard.jpeg';
-import wenda from '../../images/wenda.jpeg';
 import firebase, { firestore } from '../../firebase';
 
-const Game = ({ levels = {}, currentLevel }) => {
+const Game = ({ levels = {}, currentLevel, getCharacterImage }) => {
 
   const [image, setImage] = useState("");
   const [characters, setCharacters] = useState([]);
@@ -21,6 +16,11 @@ const Game = ({ levels = {}, currentLevel }) => {
     x: null,
     y: null
   });
+
+  useEffect(() => {
+    console.log(coords);
+    console.log(characters)
+  }, [coords]);
 
   let history = useHistory();
 
@@ -86,8 +86,18 @@ const Game = ({ levels = {}, currentLevel }) => {
       const menuBox = document.querySelector(".menu-box");
       menuBox.style.left = `${state.xPosition}px`;
       menuBox.style.top = `${state.yPosition}px`;
-      menuBox.style.transform = "translate(4rem)";
-    }
+
+      // Prevent menu from going off screen
+      if (((coords.x) > (window.screen.width/2)) && ((coords.y) > (window.screen.width/2))) {
+        menuBox.style.transform = "translate(calc(-100% - 4rem), -100%)";
+      } else if (((coords.x) < (window.screen.width/2)) && ((coords.y) > (window.screen.width/2))) {
+        menuBox.style.transform = "translate(calc(4rem), -100%)";
+      } else if  (((coords.x) > (window.screen.width/2)) && ((coords.y) < (window.screen.width/2))) {
+        menuBox.style.transform = "translate(calc(-100% - 4rem)";
+      } else {
+        menuBox.style.transform = "translate(4rem)";
+      }
+    };
   };
 
   useEffect(() => {
@@ -109,8 +119,8 @@ const Game = ({ levels = {}, currentLevel }) => {
     const bounds = gameImage.getBoundingClientRect();
     const left = bounds.left;
     const top = bounds.top;
-    const x = coords.x - left;
-    const y = coords.y - top;
+    const x = coords.x - left - window.scrollX;
+    const y = coords.y - top - window.scrollY;
     const cw = gameImage.clientWidth;
     const ch = gameImage.clientHeight;
     const iw = gameImage.naturalWidth;
@@ -127,7 +137,6 @@ const Game = ({ levels = {}, currentLevel }) => {
 
     gameLevel.get().then((doc) => {
       if (doc.exists) {
-        console.log("Document data:", doc.data());
         let levelData;
         levelData = doc.data();
         if (checkSelection(levelData, character, xLowerBoundary, xUpperBoundary, yLowerBoundary, yUpperBoundary)) {
@@ -139,6 +148,8 @@ const Game = ({ levels = {}, currentLevel }) => {
     }).catch((error) => {
         console.log("Error getting document:", error);
     });
+
+    setShowOverlay(false);
   };
 
   const checkSelection = (levelData, character, xLowerBoundary, xUpperBoundary, yLowerBoundary, yUpperBoundary) => {
@@ -151,8 +162,8 @@ const Game = ({ levels = {}, currentLevel }) => {
       };
     };
 
-    if ((((levelData.characters[characterIndex].position[characterIndex]) > xLowerBoundary) && ((levelData.characters[characterIndex].position[characterIndex]) < xUpperBoundary)) && (((levelData.characters[characterIndex].position[1]) > yLowerBoundary) && ((levelData.characters[characterIndex].position[1]) < yUpperBoundary))) {
-        return true;
+    if ((((levelData.characters[characterIndex].position[0]) > xLowerBoundary) && ((levelData.characters[characterIndex].position[0]) < xUpperBoundary)) && (((levelData.characters[characterIndex].position[1]) > yLowerBoundary) && ((levelData.characters[characterIndex].position[1]) < yUpperBoundary))) {
+      return true;
     };
     return false;
   };
@@ -172,6 +183,8 @@ const Game = ({ levels = {}, currentLevel }) => {
           }
           return char;
         });
+
+        setCharacters(updatedCharacters);
 
         const checkIfAllCharactersFound = updatedCharacters.every((char) => char.found);
 
@@ -232,20 +245,32 @@ const Game = ({ levels = {}, currentLevel }) => {
     }
   }, [gameOver]);
 
+  const handleClose = () => {
+    history.push("/");
+  }
+
   const renderGameOverModal = () => {
     if (gameOver) {
       return (
-        <div className="game-over-modal">
-          <p className="game-over-modal__p">You finished in {elapsedSeconds.toFixed(2)} seconds</p>
-          <p>Please enter your name:</p>
-          <form className="game-over-modal__form" onSubmit={handleSubmit}>
-            <input
-              name="name" 
-              className="game-over-modal__input" 
-              onChange={handleChange}
-              value={playerName}>
-            </input>
-          </form>
+        <div className="game-over-modal-wrapper">
+          <div className="game-over-modal">
+            <div class="game-over-modal__close-button-container" onClick={handleClose}>
+              <div class="game-over-modal__close-button">
+                <label>Close</label>
+              </div>
+            </div>
+            <h2 className="game-over-modal__header">Congratulations!</h2>
+            <p className="game-over-modal__p">You finished in {elapsedSeconds.toFixed(2)} seconds</p>
+            <form className="game-over-modal__form" onSubmit={handleSubmit}>
+              <input
+                name="name" 
+                placeholder="Please enter your name!"
+                className="game-over-modal__input" 
+                onChange={handleChange}
+                value={playerName}>
+              </input>
+            </form>
+          </div>
         </div>
       )
     }
@@ -260,11 +285,9 @@ const Game = ({ levels = {}, currentLevel }) => {
     if (playerName === '') {
       // Display an error
     } else {
-      console.log("It's okay");
       submitScore(playerName, elapsedSeconds);
     }
     history.push('/leaderboard');
-    console.log("WORKING")  
   }
 
   const submitScore = (playerName, elapsedSeconds) => {
@@ -300,20 +323,19 @@ const Game = ({ levels = {}, currentLevel }) => {
     };
   };
 
-  const getCharacterImage = (character) => {
-    switch (character) {
-      case 'waldo':
-        return waldo;
-      case 'odlaw':
-        return odlaw;
-      case 'wizard':
-        return wizard;
-      case 'wenda':
-        return wenda;
-      default:
-        break;
-    };
-  };
+  const characterStatus = () => {
+
+    let status = characters?.map((char) => {
+      return (
+        <div className="floating-char">
+          <img className={`floating-char__image ${char.found ? "found" : ""}`} src={getCharacterImage(char.name)} alt={`${char.name} icon`}/>
+        </div>
+      )
+    })
+
+    return <div>{status}</div>
+  }
+
 
   return (
     <Layout>
@@ -333,6 +355,9 @@ const Game = ({ levels = {}, currentLevel }) => {
             }}>
           </img>
             {showOverlay.visible && <div className="targeting-box" />}
+            <div className="floating-status">
+              {characterStatus()}
+            </div>
             {renderOptions()}
         </div>
       </div>

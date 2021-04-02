@@ -3,8 +3,12 @@ import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from '../../pages/Home/Home';
 import Game from '../../pages/Game/Game';
-import firebase, { firestore } from '../../firebase';
+import { firestore } from '../../firebase';
 import Leaderboard from '../../pages/Leaderboard/Leaderboard';
+import waldo from '../../images/waldo.jpg';
+import odlaw from '../../images/odlaw.jpg';
+import wizard from '../../images/wizard.jpeg';
+import wenda from '../../images/wenda.jpeg';
 
 const App = () => {
 
@@ -20,7 +24,6 @@ const App = () => {
       const populateArray = await gameLevels.get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
-          console.log(doc.data())
           levelInformation.push(doc.data())
         });
       });
@@ -30,6 +33,21 @@ const App = () => {
     getLevelInformation();
   }, []);
 
+  const getCharacterImage = (character) => {
+    switch (character) {
+      case 'waldo':
+        return waldo;
+      case 'odlaw':
+        return odlaw;
+      case 'wizard':
+        return wizard;
+      case 'wenda':
+        return wenda;
+      default:
+        break;
+    };
+  };
+
   return (
     <BrowserRouter>
       <Switch>
@@ -37,6 +55,7 @@ const App = () => {
           <Game 
             levels={levels}
             currentLevel={currentLevel}
+            getCharacterImage={getCharacterImage}
           />
         </Route>
         <Route path="/leaderboard">
@@ -44,6 +63,7 @@ const App = () => {
             levels={levels}
             currentLevel={currentLevel}
             setCurrentLevel={setCurrentLevel}
+            getCharacterImage={getCharacterImage}
           />
         </Route>
         <Route exact path="/">
@@ -51,6 +71,7 @@ const App = () => {
             levels={levels}
             setCurrentLevel={setCurrentLevel}
             loading={loading}
+            getCharacterImage={getCharacterImage}
           />
         </Route>
       </Switch>

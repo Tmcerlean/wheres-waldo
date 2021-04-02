@@ -38,11 +38,12 @@ function createData(name, time) {
 
 const useStyles = makeStyles({
     table: {
-        minWidth: 700,
+        minWidth: 500,
     },
 });
 
-const Leaderboard = ({ levels = {}, currentLevel, setCurrentLevel }) => {
+
+const Leaderboard = ({ levels = {}, currentLevel, setCurrentLevel, getCharacterImage }) => {
 
     const [rows, setRows] = useState([]);
 
@@ -50,13 +51,15 @@ const Leaderboard = ({ levels = {}, currentLevel, setCurrentLevel }) => {
 
     const gameLevels = levels.map((level) => {
         return (
-            <Link to="/leaderboard" onClick={() => setCurrentLevel(level.id)}>
-                <Card key={level.id} level={level} />
+            <Link onClick={() => setCurrentLevel(level.id)}>
+                <Card key={level.id} level={level} getCharacterImage={getCharacterImage} />
             </Link>
         );
     });
 
     const getHighScores = (currentLevel) => {
+
+        console.log(currentLevel)
 
         const highScores = firestore.collection('scores').where("level", "==", currentLevel).orderBy("time", "asc").limit(10);
 
@@ -65,10 +68,14 @@ const Leaderboard = ({ levels = {}, currentLevel, setCurrentLevel }) => {
             let data = [];
 
             querySnapshot.forEach((doc) => {
+                console.log(doc);
                 let name = doc.data().name;
                 let time = doc.data().time.toFixed(2);
                 data.push({name, time});
+                console.log(doc.data())
             });
+
+            console.log(data)
 
             setRows(data);
         })
@@ -79,7 +86,7 @@ const Leaderboard = ({ levels = {}, currentLevel, setCurrentLevel }) => {
 
     useEffect(() => {
         getHighScores(currentLevel)
-      }, []);
+    }, []);
 
     return (
         <Layout>
@@ -92,17 +99,17 @@ const Leaderboard = ({ levels = {}, currentLevel, setCurrentLevel }) => {
                         <Table className={classes.table} aria-label="customized table">
                             <TableHead>
                             <TableRow>
-                                <StyledTableCell>Name</StyledTableCell>
-                                <StyledTableCell>Time&nbsp;(s)</StyledTableCell>
+                                <StyledTableCell align="center">Name</StyledTableCell>
+                                <StyledTableCell align="center">Time&nbsp;(s)</StyledTableCell>
                             </TableRow>
                             </TableHead>
                             <TableBody>
                             {rows?.map((row) => (
                                 <StyledTableRow key={row.name}>
-                                <StyledTableCell component="th" scope="row">
+                                <StyledTableCell align="center" component="th" scope="row">
                                     {row.name}
                                 </StyledTableCell>
-                                <StyledTableCell>{row.time}</StyledTableCell>
+                                <StyledTableCell align="center">{row.time}</StyledTableCell>
                                 </StyledTableRow>
                             ))}
                             </TableBody>
