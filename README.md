@@ -2,6 +2,8 @@
 A puzzle game built using React JS.
 - [Live demo.](https://where-s-waldo-1cd92.web.app/)
 
+![](WaldoDemo.gif)
+
 ## Features
 - Real-time character verification
 - Real-time game over verification
