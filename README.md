@@ -20,7 +20,7 @@ A puzzle game built using React JS.
 - CSS3
 
 ## Getting Started
-- Clone this project: git clone https://github.com/Tmcerlean/cv-builder.git
+- Clone this project: git clone https://github.com/Tmcerlean/wheres-waldo.git
 - Install the required dependencies by using: npm install
 - A live demo of the project can be started by using: npm start
 - Distribution files can be produced using: npm run build
